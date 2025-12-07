@@ -4,20 +4,11 @@ import { notFound } from "next/navigation";
 import { Calendar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { unified } from "unified";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import rehypeStringify from "rehype-stringify";
-import rehypePrettyCode from "rehype-pretty-code";
+
 
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
-  const file = unified()
-    .use(remarkParse)
-    .use(remarkRehype)
-    .use(rehypePrettyCode, {
-      // See Options section below.
-    });
+ 
   const filePath = path.join(process.cwd(), "content", `${slug}.json`);
   if (!fs.existsSync(filePath)) {
     return notFound();
