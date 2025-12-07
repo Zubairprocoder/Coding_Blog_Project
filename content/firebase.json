@@ -1,0 +1,19 @@
+{
+  "title": "Firebase for Modern Web Applications",
+  "author": "Jane Doe",
+  "bio": "Full-stack Developer with expertise in Firebase and real-time applications.",
+  "description": "Firebase guide — Realtime Database, Firestore, Authentication, Hosting, and integration with React/Next.js apps.",
+  "date": "2025-12-07T11:00:00Z",
+  "coverImage": "https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png",
+  "tags": [
+    "Firebase",
+    "Realtime Database",
+    "Firestore",
+    "Authentication",
+    "Hosting",
+    "React",
+    "Next.js",
+    "BaaS"
+  ],
+  "htmlContent": "<h1 class='text-4xl md:text-5xl font-bold   dark:text-white text-center mb-8 leading-tight'>Firebase Essentials</h1>\n\n<div class='w-full max-w-3xl mx-auto  my-8 rounded-2xl overflow-hidden'>\n  <img src='https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png' class='w-full h-64 md:h-80 object-contain dark:invert dark:border-invert' alt='Firebase Logo' />\n</div>\n\n<p class='text-gray-800 dark:text-gray-100 mb-8 leading-relaxed text-lg'>Firebase is a Google-backed Backend-as-a-Service (BaaS) platform that simplifies the development of modern web and mobile applications. It provides real-time databases, authentication, hosting, cloud functions, and analytics all in one platform.</p>\n\n<h2 class='text-2xl font-semibold text-purple-600 dark:text-yellow-400 mt-10 mb-4'>Key Features</h2>\n<ul class='list-disc list-inside space-y-3 text-gray-800 dark:text-gray-100 mb-8'>\n  <li>Realtime Database & Firestore for structured and real-time data</li>\n  <li>Authentication with multiple providers (Email, Google, Facebook, GitHub)</li>\n  <li>Hosting static & dynamic content with SSL</li>\n  <li>Cloud Functions for serverless backend logic</li>\n  <li>Storage for media files and analytics integration</li>\n</ul>\n\n<h2 class='text-2xl font-semibold text-purple-600 dark:text-yellow-400 mt-10 mb-4'>Best Practices</h2>\n<ul class='list-disc list-inside space-y-3 text-gray-800 dark:text-gray-100 mb-8'>\n  <li>Use Firestore for structured and scalable data</li>\n  <li>Implement Firebase Security Rules carefully for authentication and database</li>\n  <li>Optimize queries and indexing for performance</li>\n  <li>Use Firebase SDK efficiently with React or Next.js applications</li>\n  <li>Monitor usage and costs with Firebase Analytics</li>\n</ul>\n\n<h2 class='text-2xl font-semibold text-purple-600 dark:text-yellow-400 mt-10 mb-4'>Example: Firestore Integration</h2>\n<pre class='bg-gray-100 dark:bg-gray-800 p-6 rounded-xl overflow-x-auto text-sm text-gray-900 dark:text-gray-100 mb-8'><code>import { initializeApp } from 'firebase/app';\nimport { getFirestore, collection, getDocs } from 'firebase/firestore';\n\nconst firebaseConfig = {\n  apiKey: 'YOUR_API_KEY',\n  authDomain: 'YOUR_DOMAIN',\n  projectId: 'YOUR_PROJECT_ID'\n};\n\nconst app = initializeApp(firebaseConfig);\nconst db = getFirestore(app);\n\nasync function fetchData() {\n  const querySnapshot = await getDocs(collection(db, 'users'));\n  querySnapshot.forEach((doc) =&gt; {\n    console.log(doc.id, '=>', doc.data());\n  });\n}</code></pre>\n\n<h2 class='text-2xl font-semibold text-purple-600 dark:text-yellow-400 mt-10 mb-4'>Next Steps</h2>\n<ul class='list-disc list-inside space-y-3 text-gray-800 dark:text-gray-100 mb-8'>\n  <li>Implement real-time data synchronization with Firestore</li>\n  <li>Add authentication & role-based access control</li>\n  <li>Deploy React/Next.js app using Firebase Hosting</li>\n  <li>Use Cloud Functions to handle server-side logic</li>\n  <li>Monitor user engagement and optimize performance with Analytics</li>\n</ul>\n\n<p class='text-gray-800 dark:text-gray-100 mt-6 leading-relaxed text-lg'>By following these best practices and leveraging Firebase's full potential, you can build secure, scalable, and real-time web applications efficiently.</p>"
+}

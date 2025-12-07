@@ -1,0 +1,17 @@
+{
+  "title": "Figma for UI/UX Designers & Developers",
+  "author": "Jane Doe",
+  "bio": "UI/UX Designer & Developer experienced in Figma for prototyping and design systems.",
+  "description": "Learn Figma — wireframing, prototyping, design systems, collaboration, and best practices for modern apps.",
+  "date": "2025-12-07T11:30:00Z",
+  "coverImage": "https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg",
+  "tags": [
+    "Figma",
+    "UI/UX",
+    "Design Systems",
+    "Prototyping",
+    "Wireframing",
+    "Collaboration"
+  ],
+  "htmlContent": "<h1 class='text-4xl md:text-5xl font-bold text-pink-800 dark:text-white text-center mb-8 leading-tight'>Figma Guide</h1>\n\n<div class='w-full max-w-3xl mx-auto my-8 rounded-2xl overflow-hidden'>\n  <img src='https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg' class='w-full h-64 md:h-80 object-contain dark:invert dark:border-invert' alt='Figma Development' />\n</div>\n\n<p class='text-gray-800 dark:text-gray-100 mb-8 leading-relaxed text-lg'>Figma is a powerful cloud-based UI/UX design tool that allows designers and developers to collaborate in real-time. It's perfect for creating wireframes, prototypes, and scalable design systems.</p>\n\n<h2 class='text-2xl font-semibold text-purple-600 dark:text-pink-400 mt-10 mb-4'>Key Features</h2>\n<ul class='list-disc list-inside space-y-3 text-gray-800 dark:text-gray-100 mb-8'>\n  <li>Vector Editing & Components</li>\n  <li>Design Systems & Shared Styles</li>\n  <li>Prototyping & Interactive Mockups</li>\n  <li>Collaboration, Comments & Version History</li>\n  <li>Plugins & Integrations</li>\n</ul>\n\n<h2 class='text-2xl font-semibold text-purple-600 dark:text-pink-400 mt-10 mb-4'>Best Practices</h2>\n<ul class='list-disc list-inside space-y-3 text-gray-800 dark:text-gray-100 mb-8'>\n  <li>Organize components and layers systematically</li>\n  <li>Use shared libraries for consistent styles</li>\n  <li>Keep designs responsive and scalable</li>\n  <li>Use prototyping to test user flows early</li>\n  <li>Collaborate with developers for handoff efficiency</li>\n</ul>\n\n<h2 class='text-2xl font-semibold text-purple-600 dark:text-pink-400 mt-10 mb-4'>Example: Simple Component Setup</h2>\n<pre class='bg-gray-100 dark:bg-gray-800 p-6 rounded-xl overflow-x-auto text-sm text-gray-900 dark:text-gray-100 mb-8'><code>{\n  \"Button\": {\n    \"type\": \"component\",\n    \"variant\": \"primary\",\n    \"states\": [\"default\", \"hover\", \"active\"]\n  }\n}</code></pre>\n\n<h2 class='text-2xl font-semibold text-purple-600 dark:text-pink-400 mt-10 mb-4'>Next Steps</h2>\n<ul class='list-disc list-inside space-y-3 text-gray-800 dark:text-gray-100 mb-8'>\n  <li>Explore advanced prototyping and animations</li>\n  <li>Build scalable design systems for multiple projects</li>\n  <li>Integrate Figma with tools like Zeplin or Storybook</li>\n  <li>Use version control for team collaboration</li>\n  <li>Practice user testing with interactive prototypes</li>\n</ul>\n\n<p class='text-gray-800 dark:text-gray-100 mt-6 leading-relaxed text-lg'>By following these practices, designers and developers can efficiently create visually appealing, consistent, and user-friendly interfaces using Figma.</p>"
+}

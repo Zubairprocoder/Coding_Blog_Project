@@ -1,0 +1,17 @@
+{
+  "title": "Node.js for Backend Development",
+  "author": "Jane Doe",
+  "bio": "Backend Developer with expertise in Node.js, Express.js, and APIs.",
+  "description": "Node.js guide — asynchronous JS, server-side development, event loop, Express integration, and building REST APIs.",
+  "date": "2025-12-07T12:30:00Z",
+  "coverImage": "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg",
+  "tags": [
+    "Node.js",
+    "Backend",
+    "Express.js",
+    "API",
+    "Event Loop",
+    "Asynchronous JS"
+  ],
+  "htmlContent": "<h1 class='text-4xl md:text-5xl font-bold text-green-600 dark:text-white text-center mb-8 leading-tight'>Node.js Guide</h1>\n\n<div class='w-full max-w-3xl mx-auto my-8 rounded-2xl overflow-hidden'>\n  <img src='https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg' class='w-full h-64 md:h-80 object-contain dark:invert' alt='Node.js Development' />\n</div>\n\n<p class='text-gray-800 dark:text-gray-100 mb-8 leading-relaxed text-lg'>Node.js is a server-side JavaScript runtime that enables building fast, scalable, and high-performance backend applications. It uses an event-driven, non-blocking I/O model that makes it lightweight and efficient.</p>\n\n<h2 class='text-2xl font-semibold text-purple-600 dark:text-green-400 mt-10 mb-4'>Key Features</h2>\n<ul class='list-disc list-inside space-y-3 text-gray-800 dark:text-gray-100 mb-8'>\n  <li>Asynchronous non-blocking I/O for high concurrency</li>\n  <li>Event Loop & Performance optimization</li>\n  <li>Express.js Framework for building APIs</li>\n  <li>REST API Development & routing</li>\n  <li>Database Integration (MongoDB, MySQL, PostgreSQL)</li>\n  <li>Cross-platform support and large ecosystem of packages</li>\n</ul>\n\n<h2 class='text-2xl font-semibold text-purple-600 dark:text-green-400 mt-10 mb-4'>Best Practices</h2>\n<ul class='list-disc list-inside space-y-3 text-gray-800 dark:text-gray-100 mb-8'>\n  <li>Organize code into modules and services</li>\n  <li>Handle async/await properly with error handling</li>\n  <li>Use environment variables for configuration</li>\n  <li>Write clean and maintainable code</li>\n  <li>Log errors and monitor performance</li>\n</ul>\n\n<h2 class='text-2xl font-semibold text-purple-600 dark:text-green-400 mt-10 mb-4'>Example: Simple Express Server</h2>\n<pre class='bg-gray-100 dark:bg-gray-800 p-6 rounded-xl overflow-x-auto text-sm text-gray-900 dark:text-gray-100 mb-8'><code>const express = require('express');\nconst app = express();\n\napp.get('/', (req, res) =&gt; {\n  res.send('Hello from Node.js!');\n});\n\napp.listen(3000, () =&gt; console.log('Server running on port 3000'));</code></pre>\n\n<h2 class='text-2xl font-semibold text-purple-600 dark:text-green-400 mt-10 mb-4'>Next Steps</h2>\n<ul class='list-disc list-inside space-y-3 text-gray-800 dark:text-gray-100 mb-8'>\n  <li>Integrate Node.js with MongoDB or SQL databases</li>\n  <li>Build RESTful APIs with authentication & authorization</li>\n  <li>Use WebSockets for real-time applications</li>\n  <li>Write unit tests for server-side code</li>\n  <li>Deploy backend on cloud platforms like Heroku, Render, or AWS</li>\n</ul>\n\n<p class='text-gray-800 dark:text-gray-100 mt-6 leading-relaxed text-lg'>By following these guidelines, you can build robust, scalable, and maintainable backend applications using Node.js and Express.js.</p>"
+}

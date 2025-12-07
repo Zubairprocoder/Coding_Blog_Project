@@ -1,0 +1,19 @@
+{
+  "title": "Next.js for Full-Stack Developers",
+  "author": "Jane Doe",
+  "bio": "Full-stack Developer focusing on server-side rendering and Next.js applications.",
+  "description": "Learn Next.js — covering SSR, SSG, dynamic routing, API routes, and integration with React and TailwindCSS.",
+  "date": "2025-12-07T10:30:00Z",
+  "coverImage": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
+  "tags": [
+    "Next.js",
+    "SSR",
+    "SSG",
+    "React",
+    "API Routes",
+    "TailwindCSS",
+    "Full-Stack",
+    "Dynamic Routing"
+  ],
+  "htmlContent": "<h1 class='text-4xl md:text-5xl font-bold text-black dark:text-white text-center mb-8 leading-tight'>Next.js Guide</h1>\n\n<div class='w-full max-w-3xl mx-auto my-8 rounded-2xl overflow-hidden'>\n  <img src='https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg' class='w-full h-64 md:h-80 object-contain dark:invert dark:border-invert' alt='Next.js Development' />\n</div>\n\n<p class='text-gray-800 dark:text-gray-100 mb-8 leading-relaxed text-lg'>Next.js is a powerful React framework for building production-ready web applications with server-side rendering, static site generation, and flexible API routes. It integrates seamlessly with React and TailwindCSS to build performant, scalable, and SEO-friendly applications.</p>\n\n<h2 class='text-2xl font-semibold text-black dark:text-white mt-10 mb-4'>Key Features</h2>\n<ul class='list-disc list-inside space-y-3 text-gray-800 dark:text-gray-100 mb-8'>\n  <li>SSR (Server-Side Rendering) for dynamic pages</li>\n  <li>SSG (Static Site Generation) for static content</li>\n  <li>Dynamic Routes & API Routes for backend integration</li>\n  <li>Built-in CSS, Sass, and TailwindCSS support</li>\n  <li>Next/Image component for optimized images</li>\n  <li>Incremental Static Regeneration (ISR) for updates without rebuilds</li>\n</ul>\n\n<h2 class='text-2xl font-semibold text-black dark:text-white mt-10 mb-4'>Best Practices</h2>\n<ul class='list-disc list-inside space-y-3 text-gray-800 dark:text-gray-100 mb-8'>\n  <li>Use <code class='bg-gray-100 dark:bg-gray-800 px-1 rounded'>getStaticProps</code> and <code class='bg-gray-100 dark:bg-gray-800 px-1 rounded'>getServerSideProps</code> appropriately</li>\n  <li>Organize API routes and pages for maintainability</li>\n  <li>Leverage ISR to update static pages incrementally</li>\n  <li>Optimize performance and SEO for production apps</li>\n  <li>Use TailwindCSS classes consistently for responsive UI</li>\n</ul>\n\n<h2 class='text-2xl font-semibold text-black dark:text-white mt-10 mb-4'>Example: API Route</h2>\n<pre class='bg-gray-100 dark:bg-gray-800 p-6 rounded-xl overflow-x-auto text-sm text-gray-900 dark:text-gray-100 mb-8'><code>export default function handler(req, res) {\n  res.status(200).json({ message: 'Hello from Next.js API route!' });\n}</code></pre>\n\n<h2 class='text-2xl font-semibold text-black dark:text-white mt-10 mb-4'>Next Steps</h2>\n<ul class='list-disc list-inside space-y-3 text-gray-800 dark:text-gray-100 mb-8'>\n  <li>Integrate Next.js with React state management (Redux, Zustand, or Context API)</li>\n  <li>Deploy applications on Vercel for serverless SSR and API routes</li>\n  <li>Implement authentication and role-based access control</li>\n  <li>Use TailwindCSS for responsive UI across all devices</li>\n  <li>Add analytics, monitoring, and SEO optimizations</li>\n</ul>\n\n<p class='text-gray-800 dark:text-gray-100 mt-6 leading-relaxed text-lg'>By following these best practices, you can build fast, scalable, and maintainable full-stack applications using Next.js and React.</p>"
+}
