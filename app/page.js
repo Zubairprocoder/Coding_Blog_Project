@@ -286,8 +286,8 @@ const listVariant = {
 export default function TalkoarHomepage() {
   // Slider state
   const [index, setIndex] = useState(0);
-  const slideRef = (useRef < HTMLDivElement) | (null > null);
  
+
   const prev = () => setIndex((i) => (i - 1 + IMAGES.length) % IMAGES.length);
   const next = () => setIndex((i) => (i + 1) % IMAGES.length);
   const goTo = (i) => setIndex(i);
@@ -302,7 +302,6 @@ export default function TalkoarHomepage() {
     return () => clearInterval(interval);
   }, []);
 
-  
   return (
     <main className="max-w-6xl mx-auto px-6 py-8 md:py-16  overflow-hidden">
       <Herosection />
