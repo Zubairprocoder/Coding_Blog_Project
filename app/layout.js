@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/components/theme-provider";
-
+import { AuthContextProvider } from "@/lib/contexts/AuthContext";
 import { ModeToggle } from "@/components/ModeToggle";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -38,8 +38,10 @@ export default function RootLayout({ children }) {
           <div className="fixed bottom-5 right-5 z-100">
             <ModeToggle />
           </div>
-          <main className="max-w-7xl mx-auto">{children}</main>
-          <Toaster position="top-center" />
+          <AuthContextProvider>
+            <main className="max-w-7xl mx-auto">{children}</main>
+            <Toaster position="top-center" />
+          </AuthContextProvider>
         </ThemeProvider>
 
         <Footer />
