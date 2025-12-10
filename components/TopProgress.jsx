@@ -27,7 +27,7 @@ export default function TopProgress() {
     <div className="fixed top-0 left-0 w-full z-50">
       <Progress
         value={progress}
-        className="h-0.5 bg-white transition-all duration-300"
+        className="h-0.5 bg-blue-100 transition-all duration-300"
       />
     </div>
   );

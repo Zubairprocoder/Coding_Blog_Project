@@ -18,107 +18,128 @@ import {
 } from "@/components/ui/card";
 
 import { useAuth } from "@/lib/contexts/AuthContext";
-import { FacebookAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { useUser } from "@/lib/contexts/UserContext";
+import { useRouter } from "next/navigation";
 
 export default function AuthTabs() {
-  const { login, signup, googleLogin } = useAuth();
-  const { facebookLogin } = useAuth();
+  const router = useRouter();
+  const { login, signup, googleLogin, facebookLogin, user } = useAuth();
+  const { setUserInfo } = useUser();
 
-  // Sign in form
+  // Already logged in → redirect to home
+  React.useEffect(() => {
+    if (user) router.push("/");
+  }, [user, router]);
+
+  const [tab, setTab] = React.useState("signin");
+
+  // -----------------------
+  // SIGNIN FORM
+  // -----------------------
   const signInForm = useForm({ defaultValues: { email: "", password: "" } });
   const {
     handleSubmit: handleSignIn,
     control: controlSignIn,
+    reset: resetSignIn,
     formState: { errors: signInErrors },
   } = signInForm;
 
-  const onSignIn = async (data) => {
-    try {
-      await login(data.email, data.password);
-      toast.success("Signed in successfully!");
-    } catch (error) {
-      toast.error(error.message || "Sign in failed!");
-      console.error("Sign in error:", error);
-    }
-  };
-
-  // Sign up form
+  // -----------------------
+  // SIGNUP FORM
+  // -----------------------
   const signUpForm = useForm({
     defaultValues: { name: "", email: "", password: "" },
   });
+
   const {
     handleSubmit: handleSignUp,
     control: controlSignUp,
+    reset: resetSignUp,
     formState: { errors: signUpErrors },
   } = signUpForm;
 
+  // -----------------------
+  // SIGN IN HANDLER
+  // -----------------------
+  const onSignIn = async (data) => {
+    try {
+      const result = await login(data.email, data.password);
+
+      setUserInfo({
+        name: result.user.displayName || data.email.split("@")[0],
+        email: result.user.email,
+        img: result.user.photoURL || "",
+      });
+
+      toast.success("Signed in successfully!");
+      router.push("/");
+    } catch (error) {
+      toast.error(error.message || "Sign in failed!");
+    }
+  };
+
+  // -----------------------
+  // SIGN UP HANDLER
+  // -----------------------
   const onSignUp = async (data) => {
     try {
-      await signup(data.email, data.password);
-      toast.success("Account created successfully!");
+      const result = await signup(data.email, data.password);
+
+      setUserInfo({
+        name: data.name,
+        email: data.email,
+        img: "",
+      });
+
+      toast.success("Account created!");
+      router.push("/");
     } catch (error) {
       toast.error(error.message || "Sign up failed!");
-      console.error("Sign up error:", error);
     }
   };
 
-  // Google login
-  const handleGoogle = async () => {
+  // -----------------------
+  // SOCIAL LOGIN HANDLER
+  // -----------------------
+  const handleSocialLogin = async (providerLogin) => {
     try {
-      await googleLogin();
-      toast.success("Signed in with Google!");
+      const result = await providerLogin();
+      const user = result.user;
+
+      setUserInfo({
+        name: user.displayName || "",
+        email: user.email,
+        img: user.photoURL || "",
+      });
+
+      toast.success(`Signed in as ${user.displayName || user.email}`);
+      router.push("/");
     } catch (error) {
-      console.error("Google login error:", error);
-      if (error.code === "auth/popup-closed-by-user") {
-        toast.error("Login popup closed. Please try again.");
-      } else {
-        toast.error(error.message || "Google login failed!");
-      }
+      toast.error(error.message || "Social login failed!");
     }
   };
-
-  // Facebook login
- const handleFacebook = async () => {
-   try {
-     const provider = new FacebookAuthProvider();
-     await signInWithPopup(auth, provider);
-     toast.success("Signed in with Facebook!");
-   } catch (error) {
-     console.error("Facebook login error:", error);
-
-     if (error.code === "auth/popup-closed-by-user") {
-       toast.error("Login popup closed. Please try again.");
-     } else if (error.code === "auth/user-cancelled") {
-       toast.error("Login cancelled or permission denied.");
-     } else {
-       toast.error(error.message || "Facebook login failed!");
-     }
-   }
- };
-
 
   return (
-    <div className="flex w-full max-w-md flex-col gap-8 mx-auto py-12">
+    <div className="flex w-full max-w-md flex-col gap-8 mx-auto py-12 px-4 sm:px-6">
       <Toaster position="top-center" />
 
-      <Tabs defaultValue="signin" className="space-y-6">
+      <Tabs value={tab} onValueChange={setTab} className="space-y-6">
         <TabsList className="gap-4">
           <TabsTrigger value="signin">Sign In</TabsTrigger>
           <TabsTrigger value="signup">Sign Up</TabsTrigger>
         </TabsList>
 
-        {/* Sign In */}
+        {/* ---------------- SIGN IN ---------------- */}
         <TabsContent value="signin">
-          <Card className="space-y-6">
+          <Card>
             <CardHeader>
               <CardTitle>Sign In</CardTitle>
-              <CardDescription>
-                Use your email and password to sign in.
-              </CardDescription>
+              <CardDescription>Email and password login</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+
+            <CardContent>
               <form onSubmit={handleSignIn(onSignIn)} className="space-y-4">
+                {/* Email */}
                 <Controller
                   name="email"
                   control={controlSignIn}
@@ -130,7 +151,6 @@ export default function AuthTabs() {
                         {...field}
                         type="email"
                         placeholder="you@email.com"
-                        autoComplete="email"
                       />
                       {signInErrors.email && (
                         <p className="text-red-600 text-sm">
@@ -141,22 +161,18 @@ export default function AuthTabs() {
                   )}
                 />
 
+                {/* Password */}
                 <Controller
                   name="password"
                   control={controlSignIn}
                   rules={{
-                    required: "Password is required",
+                    required: "Password required",
                     minLength: { value: 6, message: "Min 6 characters" },
                   }}
                   render={({ field }) => (
                     <div className="flex flex-col gap-1">
                       <Label>Password</Label>
-                      <Input
-                        {...field}
-                        type="password"
-                        placeholder="Your password"
-                        autoComplete="current-password"
-                      />
+                      <Input {...field} type="password" placeholder="******" />
                       {signInErrors.password && (
                         <p className="text-red-600 text-sm">
                           {signInErrors.password.message}
@@ -166,7 +182,7 @@ export default function AuthTabs() {
                   )}
                 />
 
-                <CardFooter className="flex flex-col gap-3 pt-0">
+                <CardFooter className="pt-2">
                   <Button type="submit" className="w-full">
                     Sign In
                   </Button>
@@ -176,32 +192,28 @@ export default function AuthTabs() {
           </Card>
         </TabsContent>
 
-        {/* Sign Up */}
+        {/* ---------------- SIGN UP ---------------- */}
         <TabsContent value="signup">
-          <Card className="space-y-6">
+          <Card>
             <CardHeader>
               <CardTitle>Sign Up</CardTitle>
-              <CardDescription>
-                Create a new account using email or social providers.
-              </CardDescription>
+              <CardDescription>Create your account</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+
+            <CardContent>
               <form onSubmit={handleSignUp(onSignUp)} className="space-y-4">
+                {/* Name */}
                 <Controller
                   name="name"
                   control={controlSignUp}
                   rules={{
-                    required: "Name is required",
-                    minLength: { value: 3, message: "Min 3 characters" },
+                    required: "Name required",
+                    minLength: { value: 3, message: "Min 3 chars" },
                   }}
                   render={({ field }) => (
                     <div className="flex flex-col gap-1">
                       <Label>Name</Label>
-                      <Input
-                        {...field}
-                        placeholder="Your name"
-                        autoComplete="name"
-                      />
+                      <Input {...field} placeholder="John Doe" />
                       {signUpErrors.name && (
                         <p className="text-red-600 text-sm">
                           {signUpErrors.name.message}
@@ -211,6 +223,7 @@ export default function AuthTabs() {
                   )}
                 />
 
+                {/* Email */}
                 <Controller
                   name="email"
                   control={controlSignUp}
@@ -222,7 +235,6 @@ export default function AuthTabs() {
                         {...field}
                         type="email"
                         placeholder="you@email.com"
-                        autoComplete="email"
                       />
                       {signUpErrors.email && (
                         <p className="text-red-600 text-sm">
@@ -233,22 +245,18 @@ export default function AuthTabs() {
                   )}
                 />
 
+                {/* Password */}
                 <Controller
                   name="password"
                   control={controlSignUp}
                   rules={{
-                    required: "Password is required",
-                    minLength: { value: 6, message: "Min 6 characters" },
+                    required: "Password required",
+                    minLength: { value: 6, message: "Min 6 chars" },
                   }}
                   render={({ field }) => (
                     <div className="flex flex-col gap-1">
                       <Label>Password</Label>
-                      <Input
-                        {...field}
-                        type="password"
-                        placeholder="Your password"
-                        autoComplete="new-password"
-                      />
+                      <Input {...field} type="password" placeholder="******" />
                       {signUpErrors.password && (
                         <p className="text-red-600 text-sm">
                           {signUpErrors.password.message}
@@ -258,27 +266,24 @@ export default function AuthTabs() {
                   )}
                 />
 
-                <CardFooter className="flex flex-col gap-3 pt-0">
+                <CardFooter className="flex flex-col gap-3">
                   <Button type="submit" className="w-full">
-                    Sign Up
+                    Create Account
                   </Button>
 
-                  <div className="flex flex-col gap-2">
-                    <Button
-                      variant="outline"
-                      className="flex items-center justify-around gap-5"
-                      onClick={handleGoogle}
-                    >
-                      Sign in with Google
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="flex items-center justify-around gap-5"
-                      onClick={handleFacebook}
-                    >
-                      Sign in with Facebook
-                    </Button>
-                  </div>
+                  <Button
+                    variant="outline"
+                    onClick={() => handleSocialLogin(googleLogin)}
+                  >
+                    Continue with Google
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    onClick={() => handleSocialLogin(facebookLogin)}
+                  >
+                    Continue with Facebook
+                  </Button>
                 </CardFooter>
               </form>
             </CardContent>

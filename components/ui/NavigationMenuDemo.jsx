@@ -11,9 +11,8 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import Script from "next/script";
-// ----------------------
-// DATA (Fully Mapped)
-// ----------------------
+import UserMenu from "../UserMenu";
+import { useAuth } from "@/lib/contexts/AuthContext";
 
 const navItems = [
   {
@@ -51,10 +50,6 @@ const navItems = [
     })),
   },
   {
-    label: "Dashboard",
-    href: "/dashboard",
-  },
-  {
     href: "/account",
     icon: (
       <lord-icon
@@ -66,19 +61,19 @@ const navItems = [
   },
 ];
 
-// ----------------------
-// MAIN COMPONENT
-// ----------------------
-
 export function NavigationMenuDemo() {
+  const { user } = useAuth();
+
   return (
     <>
       <Script
         src="https://cdn.lordicon.com/lusqsztk.js"
         strategy="afterInteractive"
       />
+
       <NavigationMenu>
         <NavigationMenuList className="flex-wrap">
+          {/* Render main nav items */}
           {navItems.map((item) => (
             <NavigationMenuItem
               key={item.label || item.href}
@@ -86,93 +81,72 @@ export function NavigationMenuDemo() {
             >
               {item.items ? (
                 <>
-                  {/* TRIGGER WITH UNDERLINE & LINK */}
                   <NavigationMenuTrigger className="relative group">
-                    {item.href ? (
-                      <Link href={item.href} className="relative group">
-                        {item.label}
-                        <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-                      </Link>
-                    ) : (
-                      <>
-                        {item.label}
-                        <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-                      </>
-                    )}
+                    {item.label}
+                    <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
                   </NavigationMenuTrigger>
 
-                  {/* CATEGORY BLOG → 2 COLUMN MENU */}
-                  {item.label === "Category Blog" ? (
-                    <NavigationMenuContent>
-                      <div className="grid grid-cols-2 gap-4 w-[260px] lg:w-[350px] p-4">
-                        {/* LEFT COLUMN */}
-                        <ul className="flex flex-col gap-2">
-                          {item.items.slice(0, 5).map((sub, i) => (
-                            <li key={i} className="relative group">
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  href={sub.href}
-                                  className="relative group"
-                                >
-                                  {sub.label}
-                                  <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-                                </Link>
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
+                  <NavigationMenuContent>
+                    <ul className="grid gap-2 w-[180px] lg:w-[260px] p-3">
+                      {item.items.map((sub, index) => {
+                        const realHref =
+                          user && sub.href === "/account" ? "#" : sub.href;
 
-                        {/* RIGHT COLUMN */}
-                        <ul className="flex flex-col gap-2">
-                          {item.items.slice(5).map((sub, i) => (
-                            <li key={i} className="relative group">
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  href={sub.href}
-                                  className="relative group"
-                                >
-                                  {sub.label}
-                                  <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-                                </Link>
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </NavigationMenuContent>
-                  ) : (
-                    // OTHER DROPDOWNS
-                    <NavigationMenuContent>
-                      <ul className="grid gap-2 w-[150px] lg:w-[250px] p-3">
-                        {item.items.map((sub, index) => (
+                        return (
                           <li key={index} className="relative group">
                             <NavigationMenuLink asChild>
-                              <Link href={sub.href} className="relative group">
+                              <Link
+                                href={realHref}
+                                className={`relative group ${
+                                  realHref === "#"
+                                    ? "pointer-events-none opacity-40"
+                                    : ""
+                                }`}
+                              >
                                 {sub.label}
                                 <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
                               </Link>
                             </NavigationMenuLink>
                           </li>
-                        ))}
-                      </ul>
-                    </NavigationMenuContent>
-                  )}
+                        );
+                      })}
+                    </ul>
+                  </NavigationMenuContent>
                 </>
               ) : (
-                // DIRECT LINKS
-                <NavigationMenuLink asChild>
-                  <Link
-                    href={item.href}
-                    className="flex items-center gap-2 relative group"
-                  >
-                    {item.icon && item.icon}
-                    {item.label}
-                    <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
-                  </Link>
-                </NavigationMenuLink>
+                <>
+                  {/* ACCOUNT icon */}
+                  {!user && item.icon ? (
+                    <Link href={item.href} className="relative group px-2 py-1">
+                      {item.icon}
+                    </Link>
+                  ) : null}
+                </>
               )}
             </NavigationMenuItem>
           ))}
+
+          {/* Dashboard — ONLY when logged in */}
+          {user && (
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild>
+                <Link
+                  href="/dashboard"
+                  className="px-3 py-1 hover:text-blue-600 relative group"
+                >
+                  Dashboard
+                  <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-blue-600 group-hover:w-full transition-all duration-300"></span>
+                </Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          )}
+
+          {/* USER MENU — ONLY when logged in */}
+          {user && (
+            <NavigationMenuItem>
+              <UserMenu />
+            </NavigationMenuItem>
+          )}
         </NavigationMenuList>
       </NavigationMenu>
     </>

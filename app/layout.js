@@ -6,6 +6,7 @@ import { ModeToggle } from "@/components/ModeToggle";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/sonner";
+import { UserProvider } from "@/lib/contexts/UserContext";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -34,18 +35,21 @@ export default function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <div className="fixed bottom-5 right-5 z-100">
-            <ModeToggle />
-          </div>
           <AuthContextProvider>
-            <main className="max-w-7xl mx-auto">{children}</main>
-            <Toaster position="top-center" />
+            <UserProvider>
+              <Navbar /> {/* Navbar now has access to AuthContext */}
+              <div className="fixed bottom-5 right-5 z-100">
+                <ModeToggle />
+              </div>
+              <main className="max-w-7xl mx-auto">{children}</main>
+              <Toaster position="top-center" />
+            </UserProvider>
           </AuthContextProvider>
-        </ThemeProvider>
 
-        <Footer />
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
 }
+
