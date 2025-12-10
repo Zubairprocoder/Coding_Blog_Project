@@ -188,6 +188,23 @@ export default function AuthTabs() {
                   </Button>
                 </CardFooter>
               </form>
+              <div className="flex items-center justify-center gap-3 flex-col mt-3">
+                <Button
+                  variant="outline"
+                  onClick={() => handleSocialLogin(googleLogin)}
+                >
+                  <img width={20} src="/google.png" alt="google icon" />{" "}
+                  Continue with Google
+                </Button>
+
+                <Button
+                  variant="outline"
+                  onClick={() => handleSocialLogin(facebookLogin)}
+                >
+                  <img width={20} src="/facebook.png" alt="facebook icon" />{" "}
+                  Continue with Facebook
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -275,6 +292,7 @@ export default function AuthTabs() {
                     variant="outline"
                     onClick={() => handleSocialLogin(googleLogin)}
                   >
+                    <img width={20} src="/google.png" alt="google icon" />{" "}
                     Continue with Google
                   </Button>
 
@@ -282,6 +300,7 @@ export default function AuthTabs() {
                     variant="outline"
                     onClick={() => handleSocialLogin(facebookLogin)}
                   >
+                    <img width={20} src="/facebook.png" alt="facebook icon" />{" "}
                     Continue with Facebook
                   </Button>
                 </CardFooter>

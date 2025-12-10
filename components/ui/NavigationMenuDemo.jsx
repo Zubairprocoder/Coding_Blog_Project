@@ -21,14 +21,14 @@ const navItems = [
       { label: "Home", href: "/" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
-      { label: "Account", href: "/account" },
+      { label: "Account", href: "/account" }, 
     ],
   },
   {
     label: "Blog",
     items: [
       { label: "All Blog", href: "/blog" },
-      { label: "Own Blog", href: "/blog/own" },
+      { label: "Own Blog", href: "/admindashboard" },
     ],
   },
   {
